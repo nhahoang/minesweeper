@@ -4,6 +4,7 @@ class Board < ApplicationRecord
 
   validates :name, presence: true, length: { maximum: 255 }
   validates :width, :height, :number_of_mine, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :number_of_mine, numericality: { less_than_or_equal_to: :maximum_mines }
 
   def find_mines_in_area(start_width, end_width, start_height, end_height)
     mines.where(
@@ -50,5 +51,11 @@ class Board < ApplicationRecord
 
     # Update the count of generated mines
     update!(generated_mines: generated_mines + new_mines.length)
+  end
+
+  private
+
+  def maximum_mines
+    width * height
   end
 end
