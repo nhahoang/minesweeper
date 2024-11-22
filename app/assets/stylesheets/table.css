@@ -1,0 +1,74 @@
+/* General Table Styles */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 18px;
+  font-family: Arial, sans-serif;
+  text-align: left;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.styled-table thead tr {
+  background-color: #3498db;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.styled-table th, .styled-table td {
+  padding: 12px 15px;
+  border: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-child(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #d1e7fd;
+}
+
+/* Action Links Styling */
+.styled-table .actions {
+  display: flex;
+  gap: 10px;
+}
+
+.action-link {
+  padding: 5px 10px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.show-link {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.show-link:hover {
+  background-color: #27ae60;
+}
+
+.edit-link {
+  background-color: #f1c40f;
+  color: white;
+}
+
+.edit-link:hover {
+  background-color: #d4ac0d;
+}
+
+.delete-link {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.delete-link:hover {
+  background-color: #c0392b;
+}

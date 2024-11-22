@@ -1,6 +1,6 @@
-<%= form_with(model: board, local: true) do |form| %>
+<%= form_with(model: board, local: true, class: "form-container") do |form| %>
   <% if board.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="error-messages">
       <h2><%= pluralize(board.errors.count, "error") %> prohibited this board from being saved:</h2>
       <ul>
         <% board.errors.full_messages.each do |message| %>
@@ -10,32 +10,32 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :user, 'User Email' %>
-    <%= form.text_field :user %>
+  <div class="field-group">
+    <%= form.label :user, 'User Email', class: "form-label" %>
+    <%= form.text_field :user, class: "form-input" %>
   </div>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="field-group">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-input" %>
   </div>
 
-  <div class="field">
-    <%= form.label :width %>
-    <%= form.number_field :width %>
+  <div class="field-group">
+    <%= form.label :width, class: "form-label" %>
+    <%= form.number_field :width, class: "form-input" %>
   </div>
 
-  <div class="field">
-    <%= form.label :height %>
-    <%= form.number_field :height %>
+  <div class="field-group">
+    <%= form.label :height, class: "form-label" %>
+    <%= form.number_field :height, class: "form-input" %>
   </div>
 
-  <div class="field">
-    <%= form.label :number_of_mine %>
-    <%= form.number_field :number_of_mine %>
+  <div class="field-group">
+    <%= form.label :number_of_mine, class: "form-label" %>
+    <%= form.number_field :number_of_mine, class: "form-input" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Save Board", class: "form-button" %>
   </div>
 <% end %>

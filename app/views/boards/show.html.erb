@@ -4,16 +4,18 @@
 <p>Number of Mines: <%= @board.number_of_mine %></p>
 
 <h2>Board Layout:</h2>
-<table style="border-collapse: collapse;">
-  <% @board_grid.each do |row| %>
-    <tr>
+<div class="board-container">
+  <div class="board" style="grid-template-columns: repeat(<%= @board.width %>, 40px); grid-template-rows: repeat(<%= @board.height %>, 40px);">
+    <% @board_grid.each do |row| %>
       <% row.each do |cell| %>
-        <td style="width: 30px; height: 30px; text-align: center; border: 1px solid black;">
-          <%= cell %>
-        </td>
+        <div class="cell <%= cell == 'M' ? 'mine-cell' : 'empty-cell' %>">
+          <% if cell == 'M' %>
+            💣
+          <% end %>
+        </div>
       <% end %>
-    </tr>
-  <% end %>
-</table>
+    <% end %>
+  </div>
+</div>
 
 <%= link_to 'Back to Boards', boards_path %>

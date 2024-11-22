@@ -1,0 +1,45 @@
+.board-container {
+  justify-content: center;
+  margin: 20px 0;
+  overflow: auto; /* Allows scrolling when the content overflows */
+  width: fit-content;
+  padding-right: 10px;
+}
+
+.board {
+  display: grid; /* Defines a grid layout */
+  gap: 2px; /* Space between cells */
+  border: 2px solid #333; /* Border around the whole board (grid) */
+  padding: 2px; /* Adds padding to the grid */
+}
+
+.cell {
+  width: 40px; /* Fixed width for each cell */
+  height: 40px; /* Fixed height for each cell */
+  text-align: center;
+  vertical-align: middle;
+  font-size: 24px; /* Font size for mine icon */
+  cursor: pointer;
+  display: flex; /* Centers content vertically and horizontally */
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc; /* Border around individual cells */
+  transition: background-color 0.3s ease; /* Smooth transition for hover */
+  box-sizing: border-box; /* Ensures padding is included in cell size */
+}
+
+.cell.empty-cell {
+  background-color: #ECECEC; /* Empty cell background */
+}
+
+.cell.mine-cell {
+  background-color: #FFFFFF; /* Mine cell background */
+}
+
+.cell.empty-cell:hover {
+  background-color: #ccffcc; /* Hover effect for empty cells */
+}
+
+.cell.mine-cell:hover {
+  background-color: #ff9999; /* Hover effect for mine cells */
+}
