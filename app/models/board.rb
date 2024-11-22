@@ -14,6 +14,9 @@ class Board < ApplicationRecord
   end
 
   def generate_mines_for_area(start_width, start_height, visible_width, visible_height)
+    # Check the number of mines created is enough
+    return if generated_mines >= number_of_mine
+
     # Find exist mines in visible area
     exist_mines = find_mines_in_area(start_width, start_width + visible_width, start_height, start_height + visible_height)
 
@@ -31,7 +34,7 @@ class Board < ApplicationRecord
 
     # Generate unique random positions for the mines
     positions = {}
-    needed_positions = mines_to_generate - exist_positions.length
+    needed_positions = [ mines_to_generate - exist_positions.length, number_of_mine - generated_mines ].min
     while positions.length < needed_positions
       x = rand(start_width...(start_width + visible_width))
       y = rand(start_height...(start_height + visible_height))
