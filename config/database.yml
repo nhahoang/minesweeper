@@ -52,7 +52,7 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: <%= ENV.fetch('DB_NAME_PROD') { 'minesweeper_prod' } %>
+    url: <%= ENV['JAWSDB_URL'] %>
     # username: minesweeper
     # password: <%= ENV["MINESWEEPER_DATABASE_PASSWORD"] %>
   # cache:
