@@ -1,0 +1,29 @@
+services:
+  web:
+    image: minesweeper:dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./log:/rails/log
+      - ./tmp:/rails/tmp
+    ports:
+      - "3000:80"
+    env_file:
+      - development.env
+    environment:
+      API_MODE: "true"
+    depends_on:
+      - db
+    command: ["./bin/thrust", "./bin/rails", "server"]
+
+  db:
+    # oracle version supports both x86/amd64 and arm architecture
+    image: mysql:8.3.0-oracle
+    environment:
+      command: --default-authentication-plugin=mysql_native_password
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: minesweeper_dev
+    volumes:
+      - ./db_volume/mysql_data:/var/lib/mysql
+      - ./db_volume/mysql_config/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
