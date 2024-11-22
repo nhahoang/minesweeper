@@ -2,7 +2,7 @@ class BoardsController < ApplicationController
   before_action :set_board, only: [:show]
 
   def index
-    @boards = Board.includes(:user).page(params[:page]).per(2)
+    @boards = Board.includes(:user).page(params[:page]).per(10)
   end
 
   def top
@@ -11,15 +11,39 @@ class BoardsController < ApplicationController
 
   def new
     @board = Board.new
+    @recent_boards = Board.includes(:user).order(id: :desc).limit(10)
   end
 
   def show
-    @board_grid = Array.new(@board.height) { Array.new(@board.width, '-') }
-
-    @board.mines.each do |mine|
-      @board_grid[mine.height_position][mine.width_position] = 'M'
+    @last_width = params[:last_width].to_i || 0
+    @last_height = params[:last_height].to_i || 0
+  
+    # Set the visible grid size (5x5)
+    @visible_width = @board.width < 20 ? @board.width : 20
+    @visible_height = @board.height < 20 ? @board.height : 20
+  
+    # Calculate grid boundaries
+    @start_width = @last_width
+    @end_width = [@last_width + @visible_width, @board.width].min
+    @start_height = @last_height
+    @end_height = [@last_height + @visible_height, @board.height].min
+  
+    # Initialize the visible grid
+    @board_grid = Array.new(@visible_height) { Array.new(@visible_width, '-') }
+  
+    # Fetch mines only within the visible grid boundaries
+    visible_mines = @board.mines.where(
+      width_position: @start_width...@end_width,
+      height_position: @start_height...@end_height
+    )
+  
+    visible_mines.each do |mine|
+      row = mine.height_position - @start_height
+      col = mine.width_position - @start_width
+      @board_grid[row][col] = 'M'
     end
   end
+  
 
   def create
     user = User.find_or_create_by(email: board_params[:user]) 

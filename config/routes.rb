@@ -13,9 +13,5 @@ Rails.application.routes.draw do
   root "boards#new"
 
   resources :users
-  resources :boards do
-    collection do
-      get 'top'
-    end
-  end
+  resources :boards
 end

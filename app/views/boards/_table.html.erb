@@ -6,22 +6,18 @@
       <th>User</th>
       <th>Dimensions</th>
       <th>Mines</th>
-      <th>Actions</th>
+      <th>Created At</th>
     </tr>
   </thead>
   <tbody>
-    <% @boards.each do |board| %>
+    <% boards.each do |board| %>
       <tr>
         <td><%= board.id %></td>
-        <td><%= board.name %></td>
+        <td><%= link_to board.name, board_path(board) %></td> 
         <td><%= board.user&.email || "N/A" %></td>
         <td><%= "#{board.width} x #{board.height}" %></td>
         <td><%= board.number_of_mine %></td>
-        <td class="actions">
-          <%= link_to 'Show', board_path(board), class: "action-link show-link" %>
-          <%= link_to 'Edit', edit_board_path(board), class: "action-link edit-link" %>
-          <%= link_to 'Delete', board_path(board), method: :delete, data: { confirm: 'Are you sure?' }, class: "action-link delete-link" %>
-        </td>
+        <td><%= board.created_at %></td>
       </tr>
     <% end %>
   </tbody>

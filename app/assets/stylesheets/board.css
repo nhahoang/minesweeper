@@ -8,9 +8,11 @@
 
 .board {
   display: grid; /* Defines a grid layout */
-  gap: 2px; /* Space between cells */
+  gap: 5px; /* Increased space between cells for better visibility */
   border: 2px solid #333; /* Border around the whole board (grid) */
-  padding: 2px; /* Adds padding to the grid */
+  padding: 5px; /* Adds padding to the grid */
+  grid-template-columns: repeat(5, 40px); /* Default for 5x5 grid layout */
+  grid-template-rows: repeat(5, 40px);
 }
 
 .cell {
@@ -23,17 +25,21 @@
   display: flex; /* Centers content vertically and horizontally */
   align-items: center;
   justify-content: center;
-  border: 1px solid #ccc; /* Border around individual cells */
+  border: 1px solid transparent; /* Transparent border to keep cells square */
   transition: background-color 0.3s ease; /* Smooth transition for hover */
   box-sizing: border-box; /* Ensures padding is included in cell size */
+  border-radius: 5px; /* Rounds the corners of cells */
 }
 
 .cell.empty-cell {
   background-color: #ECECEC; /* Empty cell background */
+  border: 1px solid #E0E0E0; /* Subtle border for empty cells */
 }
 
 .cell.mine-cell {
   background-color: #FFFFFF; /* Mine cell background */
+  color: #FF4D4D; /* Color for bomb icon */
+  border: 1px solid #E0E0E0; /* Subtle border for empty cells */
 }
 
 .cell.empty-cell:hover {
@@ -42,4 +48,38 @@
 
 .cell.mine-cell:hover {
   background-color: #ff9999; /* Hover effect for mine cells */
+}
+
+.navigation-buttons {
+  margin: 10px 0;
+  gap: 10px;
+}
+
+.nav-btn {
+  padding: 8px 16px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.nav-btn:hover {
+  background-color: #0056b3;
+}
+
+.header-cell {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #ddd;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
 }

@@ -2,4 +2,7 @@
 
 <%= render 'form', board: @board %>
 
-<%= link_to 'Back', boards_path %>
+<h1>Recently Generated Boards</h1>
+<%= render 'table', boards: @recent_boards %>
+
+<%= link_to 'View all generated boards', boards_path %>

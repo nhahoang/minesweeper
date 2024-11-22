@@ -4,10 +4,31 @@
 <p>Number of Mines: <%= @board.number_of_mine %></p>
 
 <h2>Board Layout:</h2>
+
+<!-- Navigation Buttons -->
+<div class="navigation-buttons">
+  <%= link_to 'Up', board_path(@board, last_width: @last_width, last_height: [@last_height - @visible_height, 0].max), class: 'nav-btn' if @last_height > 0 %>
+  <%= link_to 'Left', board_path(@board, last_width: [@last_width - @visible_width, 0].max, last_height: @last_height), class: 'nav-btn' if @last_width > 0 %>
+  <%= link_to 'Right', board_path(@board, last_width: [@last_width + @visible_width, @board.width - @visible_width].min, last_height: @last_height), class: 'nav-btn' if @last_width + @visible_width < @board.width %>
+  <%= link_to 'Down', board_path(@board, last_width: @last_width, last_height: [@last_height + @visible_height, @board.height - @visible_height].min), class: 'nav-btn' if @last_height + @visible_height < @board.height %>
+</div>
+
+<!-- Board Grid with Index Headers -->
 <div class="board-container">
-  <div class="board" style="grid-template-columns: repeat(<%= @board.width %>, 40px); grid-template-rows: repeat(<%= @board.height %>, 40px);">
-    <% @board_grid.each do |row| %>
-      <% row.each do |cell| %>
+  <div class="board" style="grid-template-columns: repeat(<%= @visible_width + 1 %>, 40px); grid-template-rows: repeat(<%= @visible_height + 1 %>, 40px);">
+    <!-- Add the top header row for width indices -->
+    <div class="header-cell"></div> <!-- Empty cell for the top-left corner -->
+    <% (@start_width...@end_width).each do |col_index| %>
+      <div class="header-cell"><%= col_index + 1 %></div>
+    <% end %>
+
+    <!-- Add the rows with height indices and cells -->
+    <% @board_grid.each_with_index do |row, row_index| %>
+      <!-- Add the left header column for height indices -->
+      <div class="header-cell"><%= @start_height + row_index + 1 %></div>
+
+      <!-- Add the grid cells -->
+      <% row.each_with_index do |cell, col_index| %>
         <div class="cell <%= cell == 'M' ? 'mine-cell' : 'empty-cell' %>">
           <% if cell == 'M' %>
             💣

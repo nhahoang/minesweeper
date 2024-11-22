@@ -1,5 +1,10 @@
 <h1>All Boards</h1>
-<%= render 'table', board: @board %>
+
+<div class="new-board-button">
+  <%= link_to 'New Board', new_board_path, class: 'btn btn-primary' %>
+</div>
+
+<%= render 'table', boards: @boards %>
 <div>
   <%= paginate @boards %>
 </div>

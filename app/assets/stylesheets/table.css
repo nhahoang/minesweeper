@@ -72,3 +72,22 @@
 .delete-link:hover {
   background-color: #c0392b;
 }
+
+.new-board-button {
+  margin-bottom: 20px;
+}
+
+.new-board-button .btn {
+  background-color: #007bff; /* Blue background */
+  color: white; /* White text */
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.new-board-button .btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
