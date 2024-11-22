@@ -17,6 +17,13 @@ class BoardsController < ApplicationController
     @last_width = params[:last_width].to_i || 0
     @last_height = params[:last_height].to_i || 0
 
+    if @last_width >= @board.width || @last_height >= @board.height
+      @last_width = 0
+      @last_height = 0
+      flash[:alert] = "The selected grid is out of range."
+      redirect_to board_path(@board)
+    end
+
     # Set visible area size
     @visible_width = [ VISIBLE_SIZE, @board.width - @last_width ].min
     @visible_height = [ VISIBLE_SIZE, @board.height - @last_height ].min

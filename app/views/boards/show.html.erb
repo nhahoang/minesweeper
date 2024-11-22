@@ -1,3 +1,9 @@
+<% if flash[:alert] %>
+  <div id="error_explanation" class="error-messages">
+    <h3> <%= flash[:alert] %></h3>
+  </div>
+<% end %>
+
 <h1>Board: <%= @board.name %></h1>
 <p>User: <%= @board.user&.email %></p>
 <p>Dimensions: <%= @board.width %> x <%= @board.height %></p>
