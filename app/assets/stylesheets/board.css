@@ -1,3 +1,7 @@
+:root {
+  --cell-size: 32px;
+}
+
 .board-container {
   justify-content: center;
   margin: 20px 0;
@@ -11,13 +15,13 @@
   gap: 5px; /* Increased space between cells for better visibility */
   border: 2px solid #333; /* Border around the whole board (grid) */
   padding: 5px; /* Adds padding to the grid */
-  grid-template-columns: repeat(5, 40px); /* Default for 5x5 grid layout */
-  grid-template-rows: repeat(5, 40px);
+  grid-template-columns: repeat(5, var(--cell-size)); /* Default for 5x5 grid layout */
+  grid-template-rows: repeat(5, var(--cell-size));
 }
 
 .cell {
-  width: 40px; /* Fixed width for each cell */
-  height: 40px; /* Fixed height for each cell */
+  width: var(--cell-size); /* Fixed width for each cell */
+  height: var(--cell-size); /* Fixed height for each cell */
   text-align: center;
   vertical-align: middle;
   font-size: 24px; /* Font size for mine icon */
@@ -27,7 +31,6 @@
   justify-content: center;
   border: 1px solid transparent; /* Transparent border to keep cells square */
   transition: background-color 0.3s ease; /* Smooth transition for hover */
-  box-sizing: border-box; /* Ensures padding is included in cell size */
   border-radius: 5px; /* Rounds the corners of cells */
 }
 
@@ -72,8 +75,8 @@
 }
 
 .header-cell {
-  width: 40px;
-  height: 40px;
+  width: var(--cell-size);
+  height: var(--cell-size);
   text-align: center;
   vertical-align: middle;
   background-color: #ddd;

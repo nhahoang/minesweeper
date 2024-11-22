@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_18_101308) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_20_171357) do
   create_table "boards", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "user_id"
     t.string "name"
@@ -19,10 +19,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_18_101308) do
     t.integer "number_of_mine"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "generated_mines", default: 0
     t.index ["user_id"], name: "index_boards_on_user_id"
   end
 
-  create_table "mines", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "mines", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "board_id"
     t.integer "width_position"
     t.integer "height_position"

@@ -12,7 +12,7 @@
 
   <div class="field-group">
     <%= form.label :user, 'User Email', class: "form-label" %>
-    <%= form.text_field :user, class: "form-input" %>
+    <%= form.text_field :user, class: "form-input", value: board.user&.email %>
   </div>
 
   <div class="field-group">
