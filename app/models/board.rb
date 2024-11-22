@@ -3,7 +3,10 @@ class Board < ApplicationRecord
   belongs_to :user
 
   validates :name, presence: true, length: { maximum: 255 }
-  validates :width, :height, :number_of_mine, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :width, :height, :number_of_mine,
+            presence: true,
+            numericality: { only_integer: true, greater_than: 0 },
+            inclusion: { in: -2_147_483_648..2_147_483_647, message: "must be within 4-byte integer range" }
   validates :number_of_mine, numericality: { less_than_or_equal_to: :maximum_mines }
 
   def find_mines_in_area(start_width, end_width, start_height, end_height)

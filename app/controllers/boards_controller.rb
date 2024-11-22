@@ -7,6 +7,9 @@ class BoardsController < ApplicationController
   end
 
   def new
+    last_board = Board.last
+    @board = last_board.nil? ? Board.new : Board.new(name: last_board.name, width: last_board.width,
+    height: last_board.height, number_of_mine: last_board.number_of_mine, user: last_board.user)
     load_home_data
   end
 
@@ -42,15 +45,16 @@ class BoardsController < ApplicationController
 
   def create
     user = User.find_or_initialize_by(email: board_params[:user])
+    @board = Board.new(board_params.except(:user))
 
     if user.new_record? && !user.save
-      flash[:alert] = "Invalid email: #{user.errors.full_messages.to_sentence}"
+      @board.errors.add(:user, "Invalid email: #{user.errors.full_messages.to_sentence}")
       load_home_data
       render :new, status: :unprocessable_entity
       return
     end
 
-    @board = Board.new(board_params.except(:user).merge(user_id: user.id))
+    @board.user_id = user.id
 
     if @board.save
       redirect_to @board, notice: "Board and mines were successfully created."
@@ -73,9 +77,6 @@ class BoardsController < ApplicationController
   end
 
   def load_home_data
-    last_board = Board.last
-    @board = last_board.nil? ? Board.new : Board.new(name: last_board.name, width: last_board.width,
-    height: last_board.height, number_of_mine: last_board.number_of_mine, user: last_board.user)
     @recent_boards = Board.includes(:user).order(id: :desc).limit(10)
   end
 end
