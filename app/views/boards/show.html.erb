@@ -30,9 +30,11 @@
     <% @board_grid.each_with_index do |row, row_index| %>
       <div class="header-cell"><%= @start_height + row_index + 1 %></div>
       <% row.each do |cell| %>
-        <div class="cell <%= cell == 1 ? 'mine-cell' : 'empty-cell' %>">
-          <% if cell == 1 %>
+        <div class="cell <%= cell == 'm' ? 'mine-cell' : (cell == 0 ? 'empty-cell' : 'number-cell') %>">
+          <% if cell == 'm' %>
             💣
+          <% elsif cell != 0 %>
+            <%= cell %>
           <% end %>
         </div>
       <% end %>

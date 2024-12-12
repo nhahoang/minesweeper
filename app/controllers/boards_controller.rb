@@ -46,8 +46,10 @@ class BoardsController < ApplicationController
     visible_mines.each do |mine|
       row = mine.height_position - @start_height
       col = mine.width_position - @start_width
-      @board_grid[row][col] = 1
+      @board_grid[row][col] = "m"
     end
+
+    @board_grid = count_mines_around(@board_grid, visible_mines, @start_width, @start_height)
   end
 
   def create
@@ -85,5 +87,27 @@ class BoardsController < ApplicationController
 
   def load_home_data
     @recent_boards = Board.includes(:user).order(id: :desc).limit(10)
+  end
+
+  def count_mines_around(board_grid, visible_mines, width, height)
+    visible_mines.each do |mine|
+      row = mine.height_position - height
+      col = mine.width_position - width
+      board_grid[row][col - 1] += 1 if col != 0 && board_grid[row][col - 1] != "m"
+      board_grid[row][col + 1] += 1 if board_grid[row][col + 1].present? && board_grid[row][col + 1] != "m"
+
+      if row != 0
+        board_grid[row - 1][col] += 1 if board_grid[row - 1][col].present? && board_grid[row - 1][col] != "m"
+        board_grid[row - 1][col - 1] += 1 if col != 0 && board_grid[row - 1][col - 1] != "m"
+        board_grid[row - 1][col + 1] += 1 if board_grid[row - 1][col + 1].present? && board_grid[row - 1][col + 1] != "m"
+      end
+
+      if board_grid[row + 1].present?
+        board_grid[row + 1][col] += 1 if board_grid[row + 1][col].present? && board_grid[row + 1][col] != "m"
+        board_grid[row + 1][col + 1] += 1 if board_grid[row + 1][col + 1].present? && board_grid[row + 1][col + 1] != "m"
+        board_grid[row + 1][col - 1] += 1 if col != 0 && board_grid[row + 1][col - 1] != "m"
+      end
+    end
+    board_grid
   end
 end

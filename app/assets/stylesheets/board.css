@@ -53,6 +53,17 @@
   background-color: #ff9999; /* Hover effect for mine cells */
 }
 
+.cell.number-cell {
+  background-color: #ECECEC; /* Empty cell background */
+  color: #FF4D4D;
+  font-weight: bold;
+  border: 1px solid #E0E0E0; /* Subtle border for empty cells */
+}
+
+.cell.number-cell:hover {
+  background-color: #ccffcc; /* Hover effect for empty cells */
+}
+
 .navigation-buttons {
   margin: 10px 0;
   gap: 10px;
